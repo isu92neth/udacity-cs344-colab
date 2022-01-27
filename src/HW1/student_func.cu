@@ -32,9 +32,10 @@
 //You should fill in the kernel as well as set the block and grid sizes
 //so that the entire image is processed.
 
-#include "reference_calc.cpp"
 #include "utils.h"
-#include <stdio.h>
+#include "device_launch_parameters.h"
+
+
 
 __global__
 void rgba_to_greyscale(const uchar4* const rgbaImage,
