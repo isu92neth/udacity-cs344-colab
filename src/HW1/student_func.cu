@@ -78,8 +78,7 @@ void rgba_to_greyscale(const uchar4* const rgbaImage,
   int dim1_idx = rthread_idx * (block_dimx * grid_dimx) + rthread_idy;
   
   //greyscale conversion
-  int grey_val = .299f * rgbaImage[dim1_idx].x + .587f * rgbaImage[dim1_idx].y + .114f * rgbaImage[dim1_idx].z;
-  greyImage[dim1_idx] = grey_val;
+    greyImage[dim1_idx] = (unsigned char)(.299f * rgbaImage[dim1_idx].x + .587f * rgbaImage[dim1_idx].y + .114f * rgbaImage[dim1_idx].z);
   
 }
 
