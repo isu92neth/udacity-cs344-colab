@@ -35,7 +35,7 @@
 
 #include "utils.h"
 #include "device_launch_parameters.h"
-#define blockWidth 32
+const size_t blockWidth = 32;
 
 
 __global__
