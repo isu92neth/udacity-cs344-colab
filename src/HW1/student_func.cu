@@ -1,4 +1,4 @@
-%%cuda --name student_func.cu
+
 
 // Homework 1
 // Color to Greyscale Conversion
@@ -76,7 +76,7 @@ void rgba_to_greyscale(const uchar4* const rgbaImage,
   int rthread_idy = (block_dimy * block_idy) + thread_idy;
   
   //one dimensional index 
-  int dim1_idx = rthread_idx * (block_dimx * grid_dimx) + rthread_idy;
+  int dim1_idx = rthread_idx * numCols + rthread_idy;
   
   //greyscale conversion
     greyImage[dim1_idx] = (unsigned char)(.299f * rgbaImage[dim1_idx].x + .587f * rgbaImage[dim1_idx].y + .114f * rgbaImage[dim1_idx].z);
@@ -88,7 +88,7 @@ void your_rgba_to_greyscale(const uchar4 * const h_rgbaImage, uchar4 * const d_r
 {
   //You must fill in the correct sizes for the blockSize and gridSize
   //currently only one block with one thread is being launched
- const dim3 blockSize(blockWidth,blockWidth, 1);
+const dim3 blockSize(blockWidth,blockWidth, 1);
 unsigned int numBlocksX = (unsigned int)(numRows / blockWidth + 1);
 unsigned int numBlocksY = (unsigned int)(numCols / blockWidth + 1);
 const dim3 gridSize(numBlocksX,numBlocksY, 1);
