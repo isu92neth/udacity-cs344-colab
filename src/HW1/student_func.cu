@@ -88,8 +88,17 @@ void your_rgba_to_greyscale(const uchar4 * const h_rgbaImage, uchar4 * const d_r
 {
   //You must fill in the correct sizes for the blockSize and gridSize
   //currently only one block with one thread is being launched
- const dim3 blockSize(blockWidth,blockWidth, 1);
- const dim3 gridSize((numRows / blockWidth + 1),(numCols / blockWidth + 1), 1);
+ int block_width = 16;
+  int block_height = 16;
+  int grid_width = numCols / block_width;
+  if (grid_width * block_width < numCols)
+      grid_width++;
+  int grid_height = numRows / block_height;
+  if (grid_height * block_height < numRows)
+      grid_height++;
+  
+  const dim3 blockSize(block_width, block_height );  //TODO
+  const dim3 gridSize( grid_width, grid_height );  //TODO
 rgba_to_greyscale<<<gridSize, blockSize>>>(d_rgbaImage, d_greyImage, numRows, numCols);
   
   cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
