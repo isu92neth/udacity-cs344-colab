@@ -35,7 +35,7 @@
 
 #include "utils.h"
 #include "device_launch_parameters.h"
-const size_t blockWidth = 32;
+#define blockWidth 32
 
 
 __global__
@@ -89,9 +89,7 @@ void your_rgba_to_greyscale(const uchar4 * const h_rgbaImage, uchar4 * const d_r
   //You must fill in the correct sizes for the blockSize and gridSize
   //currently only one block with one thread is being launched
 const dim3 blockSize(blockWidth,blockWidth, 1);
-unsigned int numBlocksX = (unsigned int)(numRows / blockWidth + 1);
-unsigned int numBlocksY = (unsigned int)(numCols / blockWidth + 1);
-const dim3 gridSize(numBlocksX,numBlocksY, 1);
+const dim3 gridSize((numRows / blockWidth ),(numCols / blockWidth ), 1);
 rgba_to_greyscale<<<gridSize, blockSize>>>(d_rgbaImage, d_greyImage, numRows, numCols);
   
   cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
